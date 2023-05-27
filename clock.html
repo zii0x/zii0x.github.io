@@ -33,21 +33,18 @@
         const getTimeWithAngle = (angle) => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle)).toLocaleTimeString();
 
         const nightDuration = (astronomicalDusk - astronomicalDawn) / (1000 * 60 * 60 * 24);
-        const [oneThirdNight, twoThirdsNight] = [1, 2].map(factor => new Date(astronomicalDusk.getTime() - nightDuration / 3 * factor * 60 * 60 * 1000).toLocaleTimeString());
+        const oneThirdNight = new Date(astronomicalDusk.getTime() - nightDuration / 3 * 60 * 60 * 1000).toLocaleTimeString();
+        const twoThirdsNight = new Date(astronomicalDusk.getTime() - nightDuration / 3 * 2 * 60 * 60 * 1000).toLocaleTimeString();
 
         const setTextContent = (id, value) => document.getElementById(id).textContent = value;
 
-        const times = {
-            astronomicalDawn: astronomicalDawn.toLocaleTimeString(),
-            astronomicalDusk: astronomicalDusk.toLocaleTimeString(),
-            solarNoon: solarNoon.toLocaleTimeString(),
-            oneThirdNight,
-            twoThirdsNight,
-            time45: getTimeWithAngle(45),
-            time26: getTimeWithAngle(26.57),
-        };
-
-        Object.entries(times).forEach(([id, value]) => setTextContent(id, value));
+        setTextContent('astronomicalDawn', astronomicalDawn.toLocaleTimeString());
+        setTextContent('astronomicalDusk', astronomicalDusk.toLocaleTimeString());
+        setTextContent('solarNoon', solarNoon.toLocaleTimeString());
+        setTextContent('oneThirdNight', oneThirdNight);
+        setTextContent('twoThirdsNight', twoThirdsNight);
+        setTextContent('time45', getTimeWithAngle(45));
+        setTextContent('time26', getTimeWithAngle(26.57));
     </script>
 </body>
 
