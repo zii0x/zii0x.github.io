@@ -6,11 +6,11 @@
 </head>
 
 <body>
-    <h1>SunCalc Values</h1>
-    <p>Astronomical Dawn: <span id="astronomicalDawn"></span></p>
-    <p>Astronomical Dusk: <span id="astronomicalDusk"></span></p>
-    <p>Time at 45°: <span id="time45"></span></p>
-    <p>Time at 26.57°: <span id="time26"></span></p>
+    <h1>Akurasi Waktu Shalat</h1>
+    <p>Shubuh: <span id="astronomicalDawn"></span></p>
+    <p>Isya: <span id="astronomicalDusk"></span></p>
+    <p>Ashar: <span id="time45"></span></p>
+    <p>Akhir waktu Ashar: <span id="time26"></span></p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
     <script>
@@ -18,25 +18,21 @@
         const lat = 24;
         const lng = 40;
 
-        const { nightEnd: astronomicalDawn, night: astronomicalDusk } = SunCalc.getTimes(date, lat, lng);
-        const sunTimes = SunCalc.getTimes(date, lat, lng);
-        const { solarNoon, sunset } = sunTimes;
-        const solarNoonAngle = SunCalc.getPosition(solarNoon, lat, lng).altitude * 180 / Math.PI;
-        const sunsetAngle = SunCalc.getPosition(sunset, lat, lng).altitude * 180 / Math.PI;
+        const { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset } = SunCalc.getTimes(date, lat, lng);
+        const getAltitudeInDegrees = (time) => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
 
+        const solarNoonAngle = getAltitudeInDegrees(solarNoon);
+        const sunsetAngle = getAltitudeInDegrees(sunset);
         const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
-        const second45 = new Date(solarNoon.getTime() + timeToSunset * (45 - solarNoonAngle));
-        const second26 = new Date(solarNoon.getTime() + timeToSunset * (26.57 - solarNoonAngle));
 
-        const astronomicalDawnValue = astronomicalDawn.toLocaleTimeString();
-        const astronomicalDuskValue = astronomicalDusk.toLocaleTimeString();
-        const time45Value = second45.toLocaleTimeString();
-        const time26Value = second26.toLocaleTimeString();
+        const getTimeWithAngle = (angle) => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle)).toLocaleTimeString();
 
-        document.getElementById('astronomicalDawn').textContent = astronomicalDawnValue;
-        document.getElementById('astronomicalDusk').textContent = astronomicalDuskValue;
-        document.getElementById('time45').textContent = time45Value;
-        document.getElementById('time26').textContent = time26Value;
+        const setTextContent = (id, value) => document.getElementById(id).textContent = value;
+
+        setTextContent('astronomicalDawn', astronomicalDawn.toLocaleTimeString());
+        setTextContent('astronomicalDusk', astronomicalDusk.toLocaleTimeString());
+        setTextContent('time45', getTimeWithAngle(45));
+        setTextContent('time26', getTimeWithAngle(26.57));
     </script>
 </body>
 

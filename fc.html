@@ -102,14 +102,12 @@
 <body>
     <form>
         <div class="choices">
-            <div class="mdc-segmented-button" role="group">
-                <button class="mdc-segmented-button__segment" aria-pressed="true">
-                  Simplex
-                </button>
-                <button class="mdc-segmented-button__segment">
-                  Duplex
-                </button>
-              </div>
+            <div class="face">
+                <input type="radio" id="oneface" name="face" value="oneface" checked>
+                <label for="oneface">Simplex</label>
+                <input type="radio" id="twoface" name="face" value="twoface">
+                <label for="twoface">Duplex</label>
+            </div>
             <div class="color">
                 <input type="radio" id="color" name="color" value="color">
                 <label for="color">Color</label>
