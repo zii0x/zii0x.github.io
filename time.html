@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Calculator</title>
+</head>
+<body>
+    <h1>Time Calculator</h1>
+    <h2>Add or Subtract Minutes</h2>
+    <label for="initialHours">Enter initial hours:</label>
+    <input type="number" id="initialHours" name="initialHours"><br><br>
+    <label for="initialMinutes">Enter initial minutes:</label>
+    <input type="number" id="initialMinutes" name="initialMinutes"><br><br>
+    <label for="minutesToAdd">Enter minutes to add or subtract:</label>
+    <input type="number" id="minutesToAdd" name="minutesToAdd"><br><br>
+    <button onclick="calculate()">Calculate</button>
+    <p id="result"></p>
+
+    <h2>Calculate Time Difference</h2>
+    <label for="firstHours">Enter first hours:</label>
+    <input type="number" id="firstHours" name="firstHours"><br><br>
+    <label for="firstMinutes">Enter first minutes:</label>
+    <input type="number" id="firstMinutes" name="firstMinutes"><br><br>
+    <label for="secondHours">Enter second hours:</label>
+    <input type="number" id="secondHours" name="secondHours"><br><br>
+    <label for="secondMinutes">Enter second minutes:</label>
+    <input type="number" id="secondMinutes" name="secondMinutes"><br><br>
+    <button onclick="calculateDifference()">Calculate Difference</button>
+    <p id="differenceResult"></p>
+
+    <script>
+        function calculate() {
+            var initialHours = document.getElementById("initialHours").value;
+            var initialMinutes = document.getElementById("initialMinutes").value;
+            var minutesToAdd = document.getElementById("minutesToAdd").value;
+            var date = new Date();
+            date.setHours(initialHours);
+            date.setMinutes(initialMinutes);
+            date.setSeconds(0);
+            var finalTime = new Date(date.getTime() + minutesToAdd*60000);
+            document.getElementById("result").innerHTML = finalTime.toLocaleTimeString();
+        }
+
+        function calculateDifference() {
+            var firstHours = document.getElementById("firstHours").value;
+            var firstMinutes = document.getElementById("firstMinutes").value;
+            var secondHours = document.getElementById("secondHours").value;
+            var secondMinutes = document.getElementById("secondMinutes").value;
+            var firstDate = new Date();
+            firstDate.setHours(firstHours);
+            firstDate.setMinutes(firstMinutes);
+            firstDate.setSeconds(0);
+            var secondDate = new Date();
+            secondDate.setHours(secondHours);
+            secondDate.setMinutes(secondMinutes);
+            secondDate.setSeconds(0);
+            var difference = Math.abs(secondDate - firstDate) / 60000;
+            document.getElementById("differenceResult").innerHTML = "The time difference is " + difference + " minutes.";
+        }
+    </script>
+</body>
+</html>

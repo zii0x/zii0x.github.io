@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SunCalc Values</title>
+</head>
+
+<body>
+    <h1>SunCalc Values</h1>
+    <p>Astronomical Dawn: <span id="astronomicalDawn"></span></p>
+    <p>Astronomical Dusk: <span id="astronomicalDusk"></span></p>
+    <p>Time at 45°: <span id="time45"></span></p>
+    <p>Time at 26.57°: <span id="time26"></span></p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+    <script>
+        const date = new Date();
+        const lat = 24;
+        const lng = 40;
+
+        const { nightEnd: astronomicalDawn, night: astronomicalDusk } = SunCalc.getTimes(date, lat, lng);
+        const sunTimes = SunCalc.getTimes(date, lat, lng);
+        const { solarNoon, sunset } = sunTimes;
+        const solarNoonAngle = SunCalc.getPosition(solarNoon, lat, lng).altitude * 180 / Math.PI;
+        const sunsetAngle = SunCalc.getPosition(sunset, lat, lng).altitude * 180 / Math.PI;
+
+        const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
+        const second45 = new Date(solarNoon.getTime() + timeToSunset * (45 - solarNoonAngle));
+        const second26 = new Date(solarNoon.getTime() + timeToSunset * (26.57 - solarNoonAngle));
+
+        const astronomicalDawnValue = astronomicalDawn.toLocaleTimeString();
+        const astronomicalDuskValue = astronomicalDusk.toLocaleTimeString();
+        const time45Value = second45.toLocaleTimeString();
+        const time26Value = second26.toLocaleTimeString();
+
+        document.getElementById('astronomicalDawn').textContent = astronomicalDawnValue;
+        document.getElementById('astronomicalDusk').textContent = astronomicalDuskValue;
+        document.getElementById('time45').textContent = time45Value;
+        document.getElementById('time26').textContent = time26Value;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: rgb(196, 230, 255);
+			font-family: 'Product Sans';
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background: white;
+			padding: 2vh;
+			border-radius: 10px;
+		}
+
+		h1{
+			margin: 1vh;
+		}
+
+		p{
+			margin: 1vh
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Waktu Ashar</h1>
+		<p>Ashar: <span id="time45"></span> - <span id="time26"></span></p>
+	</div>
+	<script>
+		const date = new Date();
+		const lat = 24;
+		const lng = 40;
+
+		const sunTimes = SunCalc.getTimes(date, lat, lng);
+		const { solarNoon, sunset } = sunTimes;
+		const solarNoonAngle = SunCalc.getPosition(solarNoon, lat, lng).altitude * 180 / Math.PI;
+		const sunsetAngle = SunCalc.getPosition(sunset, lat, lng).altitude * 180 / Math.PI;
+
+		const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
+		const second45 = new Date(solarNoon.getTime() + timeToSunset * (45 - solarNoonAngle));
+		const second26_62 = new Date(solarNoon.getTime() + timeToSunset * (26.57 - solarNoonAngle));
+
+		document.getElementById("time45").innerHTML = second45.toLocaleTimeString();
+		document.getElementById("time26").innerHTML = second26_62.toLocaleTimeString();
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Astronomical Dawn and Dusk</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+</head>
+
+<body>
+    <h1>Astronomical Dawn and Dusk</h1>
+    <p id="astronomicalDawn"></p>
+    <p id="astronomicalDusk"></p>
+
+    <script>
+        const date = new Date('2023-05-25');
+        const { nightEnd: astronomicalDawn, night: astronomicalDusk } = SunCalc.getTimes(date, 26, 40);
+
+        document.getElementById('astronomicalDawn').textContent = `Astronomical Dawn: ${astronomicalDawn.toLocaleTimeString()}`;
+        document.getElementById('astronomicalDusk').textContent = `Astronomical Dusk: ${astronomicalDusk.toLocaleTimeString()}`;
+    </script>
+</body>
+
+</html>
