@@ -1,24 +1,60 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Akurasi Waktu Shalat</title>
 </head>
-
 <body>
     <h1>Akurasi Waktu Shalat</h1>
-    <p>Shubuh: <span id="astronomicalDawn"></span></p>
-    <p>Syuruq: <span id="sunrise"></span></p>
-    <p>Dhuha: <span id="sunrisePlus20"></span></p>
-    <p>Tengah Hari: <span id="solarNoon"></span></p>
-    <p>Zhuhur: <span id="solarNoonPlus2"></span></p>
-    <p>Ashar: <span id="time45"></span></p>
-    <p>Akhir waktu Ashar: <span id="time26"></span></p>
-    <p>Maghrib: <span id="sunset"></span></p>
-    <p>Isya: <span id="astronomicalDusk"></span></p>
-    <p>Tengah Malam: <span id="solarMidnight"></span></p>
-    <p>Sepertiga Malam Kedua: <span id="firstThirdEnds"></span></p>
-    <p>Sepertiga Malam Ketiga: <span id="secondThirdEnds"></span></p>
+    <table>
+        <tr>
+            <td>Shubuh:</td>
+            <td><span id="astronomicalDawn"></span></td>
+        </tr>
+        <tr>
+            <td>Syuruq:</td>
+            <td><span id="sunrise"></span></td>
+        </tr>
+        <tr>
+            <td>Dhuha:</td>
+            <td><span id="sunrisePlus20"></span></td>
+        </tr>
+        <tr>
+            <td>Tengah Hari:</td>
+            <td><span id="solarNoon"></span></td>
+        </tr>
+        <tr>
+            <td>Zhuhur:</td>
+            <td><span id="solarNoonPlus2"></span></td>
+        </tr>
+        <tr>
+            <td>Ashar:</td>
+            <td><span id="time45"></span></td>
+        </tr>
+        <tr>
+            <td>Akhir waktu Ashar:</td>
+            <td><span id="time26"></span></td>
+        </tr>
+        <tr>
+            <td>Maghrib:</td>
+            <td><span id="sunset"></span></td>
+        </tr>
+        <tr>
+            <td>Isya:</td>
+            <td><span id="astronomicalDusk"></span></td>
+        </tr>
+        <tr>
+            <td>Tengah Malam:</td>
+            <td><span id="solarMidnight"></span></td>
+        </tr>
+        <tr>
+            <td>Sepertiga Malam Kedua:</td>
+            <td><span id="firstThirdEnds"></span></td>
+        </tr>
+        <tr>
+            <td>Sepertiga Malam Ketiga:</td>
+            <td><span id="secondThirdEnds"></span></td>
+        </tr>
+    </table>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
     <script>
         if (navigator.geolocation) {
@@ -72,5 +108,4 @@
 
     </script>
 </body>
-
 </html>
