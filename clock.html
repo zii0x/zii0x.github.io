@@ -8,47 +8,63 @@
 <body>
     <h1>Akurasi Waktu Shalat</h1>
     <p>Shubuh: <span id="astronomicalDawn"></span></p>
-    <p>Isya: <span id="astronomicalDusk"></span></p>
+    <p>Syuruq: <span id="sunrise"></span></p>
+    <p>Dhuha: <span id="sunrisePlus20"></span></p>
+    <p>Tengah Hari: <span id="solarNoon"></span></p>
+    <p>Zhuhur: <span id="solarNoonPlus2"></span></p>
     <p>Ashar: <span id="time45"></span></p>
     <p>Akhir waktu Ashar: <span id="time26"></span></p>
-    <p>Solar Noon: <span id="solarNoon"></span></p>
-    <p>Solar Noon+2: <span id="solarNoonPlus2"></span></p>
-    <p>sunset: <span id="sunset"></span></p>
-    <p>sunrise: <span id="sunrise"></span></p>
-    <p>sunrisePlus20: <span id="sunrisePlus20"></span></p>
-    <p>solarMidnight: <span id="solarMidnight"></span></p>
-
+    <p>Maghrib: <span id="sunset"></span></p>
+    <p>Isya: <span id="astronomicalDusk"></span></p>
+    <p>Tengah Malam: <span id="solarMidnight"></span></p>
+    <p>Sepertiga Malam Kedua: <span id="firstThirdEnds"></span></p>
+    <p>Sepertiga Malam Ketiga: <span id="secondThirdEnds"></span></p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
     <script>
-        const date = new Date();
-        const lat = 24;
-        const lng = 40;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
 
-        const { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset, sunrise } = SunCalc.getTimes(date, lat, lng);
-        const getAltitudeInDegrees = time => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
+                let { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset, sunrise } = SunCalc.getTimes(new Date(), lat, lng);
 
-        const solarNoonAngle = getAltitudeInDegrees(solarNoon);
-        const sunsetAngle = getAltitudeInDegrees(sunset);
-        const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
+                if (astronomicalDawn < astronomicalDusk) {
+                    astronomicalDawn = new Date(astronomicalDawn.getTime() + 24 * 60 * 60 * 1000);
+                }
 
-        const getTimeWithAngle = angle => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle));
+                const getAltitudeInDegrees = time => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
+                const solarNoonAngle = getAltitudeInDegrees(solarNoon);
+                const sunsetAngle = getAltitudeInDegrees(sunset);
+                const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
+                const getTimeWithAngle = angle => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle));
+                const solarMidnight = new Date((astronomicalDusk.getTime() + astronomicalDawn.getTime()) / 2);
 
-        const solarMidnight = new Date((astronomicalDusk.getTime() + astronomicalDawn.getTime()) / 2);
+                const setTextContent = (id, value) => document.getElementById(id).textContent = value;
 
-        const setTextContent = (id, value) => document.getElementById(id).textContent = value;
+                const duration = astronomicalDawn - astronomicalDusk;
+                const thirdDuration = duration / 3;
+                const firstThirdEnds = new Date(astronomicalDusk.getTime() + thirdDuration);
+                const secondThirdEnds = new Date(firstThirdEnds.getTime() + thirdDuration);
 
-        [
-            ['astronomicalDawn', astronomicalDawn],
-            ['astronomicalDusk', astronomicalDusk],
-            ['time45', getTimeWithAngle(45)],
-            ['time26', getTimeWithAngle(26.57)],
-            ['solarNoon', solarNoon],
-            ['solarNoonPlus2', new Date(solarNoon.getTime() + 2 * 60 * 1000)],
-            ['sunset', sunset],
-            ['sunrisePlus20', new Date(sunrise.getTime() + 20 * 60 * 1000)],
-            ['sunrise', sunrise],
-            ['solarMidnight', solarMidnight]
-        ].forEach(([id, value]) => setTextContent(id, value.toLocaleTimeString()));
+                [
+                    ['astronomicalDawn', astronomicalDawn],
+                    ['astronomicalDusk', astronomicalDusk],
+                    ['time45', getTimeWithAngle(45)],
+                    ['time26', getTimeWithAngle(26.57)],
+                    ['solarNoon', solarNoon],
+                    ['solarNoonPlus2', new Date(solarNoon.getTime() + 2 * 60 * 1000)],
+                    ['sunset', sunset],
+                    ['sunrisePlus20', new Date(sunrise.getTime() + 20 * 60 * 1000)],
+                    ['sunrise', sunrise],
+                    ['solarMidnight', solarMidnight],
+                    ['firstThirdEnds', firstThirdEnds],
+                    ['secondThirdEnds', secondThirdEnds]
+                ].forEach(([id, value]) => setTextContent(id, value.toLocaleTimeString()));
+            });
+        } else {
+            // handle error
+        }
+
     </script>
 </body>
 

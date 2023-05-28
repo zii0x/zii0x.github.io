@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Thirds</title>
+</head>
+
+<body>
+    <h1>Thirds</h1>
+    <label for="dusk">Astronomical Dusk:</label>
+    <input type="time" id="dusk" name="dusk"><br><br>
+    <label for="dawn">Astronomical Dawn:</label>
+    <input type="time" id="dawn" name="dawn"><br><br>
+    <button onclick="calculate()">Calculate</button><br><br>
+    <p id="first"></p>
+    <p id="second"></p>
+
+    <script>
+        const astronomicalDusk = new Date('2023-05-27T20:28:44');
+        const astronomicalDawn = new Date('2023-05-28T04:08:35');
+
+        const duration = astronomicalDawn - astronomicalDusk;
+        const thirdDuration = duration / 3;
+
+        const firstThirdEnds = new Date(astronomicalDusk.getTime() + thirdDuration);
+        const secondThirdEnds = new Date(firstThirdEnds.getTime() + thirdDuration);
+
+        console.log(`Duration: ${duration} ms`);
+        console.log(`First third ends at: ${firstThirdEnds}`);
+        console.log(`Second third ends at: ${secondThirdEnds}`);
+    </script>
+</body>
+
+</html>
