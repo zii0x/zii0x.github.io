@@ -46,6 +46,11 @@
                 const firstThirdEnds = new Date(astronomicalDusk.getTime() + thirdDuration);
                 const secondThirdEnds = new Date(firstThirdEnds.getTime() + thirdDuration);
 
+                const formatTime = date => {
+                    const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+                    return date.toLocaleTimeString(undefined, options);
+                };
+
                 [
                     ['astronomicalDawn', astronomicalDawn],
                     ['astronomicalDusk', astronomicalDusk],
