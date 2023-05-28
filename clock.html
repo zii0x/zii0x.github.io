@@ -14,25 +14,26 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
     <script>
-        const date = new Date();
-        const lat = 24;
-        const lng = 40;
+const date = new Date();
+const lat = 24;
+const lng = 40;
 
-        const { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset } = SunCalc.getTimes(date, lat, lng);
-        const getAltitudeInDegrees = (time) => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
+const { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset } = SunCalc.getTimes(date, lat, lng);
+const getAltitudeInDegrees = (time) => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
 
-        const solarNoonAngle = getAltitudeInDegrees(solarNoon);
-        const sunsetAngle = getAltitudeInDegrees(sunset);
-        const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
+const solarNoonAngle = getAltitudeInDegrees(solarNoon);
+const sunsetAngle = getAltitudeInDegrees(sunset);
+const timeToSunset = sunset - solarNoon;
 
-        const getTimeWithAngle = (angle) => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle)).toLocaleTimeString();
+const getTimeWithAngle = (angle) => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle)).toLocaleTimeString();
 
-        const setTextContent = (id, value) => document.getElementById(id).textContent = value;
+const setTextContent = (id, value) => document.getElementById(id).textContent = value;
 
-        setTextContent('astronomicalDawn', astronomicalDawn.toLocaleTimeString());
-        setTextContent('astronomicalDusk', astronomicalDusk.toLocaleTimeString());
-        setTextContent('time45', getTimeWithAngle(45));
-        setTextContent('time26', getTimeWithAngle(26.57));
+setTextContent('astronomicalDawn', astronomicalDawn.toLocaleTimeString());
+setTextContent('astronomicalDusk', astronomicalDusk.toLocaleTimeString());
+setTextContent('time45', getTimeWithAngle(45));
+setTextContent('time26', getTimeWithAngle(26.57));
+
     </script>
 </body>
 
