@@ -25,28 +25,30 @@
         const lng = 40;
 
         const { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset, sunrise } = SunCalc.getTimes(date, lat, lng);
-        const getAltitudeInDegrees = (time) => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
+        const getAltitudeInDegrees = time => SunCalc.getPosition(time, lat, lng).altitude * 180 / Math.PI;
 
         const solarNoonAngle = getAltitudeInDegrees(solarNoon);
         const sunsetAngle = getAltitudeInDegrees(sunset);
         const timeToSunset = (sunset - solarNoon) / (sunsetAngle - solarNoonAngle);
 
-        const getTimeWithAngle = (angle) => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle)).toLocaleTimeString();
+        const getTimeWithAngle = angle => new Date(solarNoon.getTime() + timeToSunset * (angle - solarNoonAngle));
 
         const solarMidnight = new Date((astronomicalDusk.getTime() + astronomicalDawn.getTime()) / 2);
 
         const setTextContent = (id, value) => document.getElementById(id).textContent = value;
 
-        setTextContent('astronomicalDawn', astronomicalDawn.toLocaleTimeString());
-        setTextContent('astronomicalDusk', astronomicalDusk.toLocaleTimeString());
-        setTextContent('time45', getTimeWithAngle(45));
-        setTextContent('time26', getTimeWithAngle(26.57));
-        setTextContent('solarNoon', solarNoon.toLocaleTimeString());
-        setTextContent('solarNoonPlus2', new Date(solarNoon.getTime() + 2 * 60 * 1000).toLocaleTimeString());
-        setTextContent('sunset', sunset.toLocaleTimeString());
-        setTextContent('sunrisePlus20', new Date(sunrise.getTime() + 20 * 60 * 1000).toLocaleTimeString());
-        setTextContent('sunrise', sunrise.toLocaleTimeString());
-        setTextContent('solarMidnight', solarMidnight.toLocaleTimeString());
+        [
+            ['astronomicalDawn', astronomicalDawn],
+            ['astronomicalDusk', astronomicalDusk],
+            ['time45', getTimeWithAngle(45)],
+            ['time26', getTimeWithAngle(26.57)],
+            ['solarNoon', solarNoon],
+            ['solarNoonPlus2', new Date(solarNoon.getTime() + 2 * 60 * 1000)],
+            ['sunset', sunset],
+            ['sunrisePlus20', new Date(sunrise.getTime() + 20 * 60 * 1000)],
+            ['sunrise', sunrise],
+            ['solarMidnight', solarMidnight]
+        ].forEach(([id, value]) => setTextContent(id, value.toLocaleTimeString()));
     </script>
 </body>
 
