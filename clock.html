@@ -103,6 +103,8 @@
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 console.log(`Latitude: ${lat}, Longitude: ${lng}`);
+            }, error => {
+                console.error(error);
 
                 let { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset, sunrise } = SunCalc.getTimes(new Date(), lat, lng);
 
