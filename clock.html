@@ -102,6 +102,7 @@
             navigator.geolocation.getCurrentPosition(position => {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
+                console.log(`Latitude: ${lat}, Longitude: ${lng}`);
 
                 let { nightEnd: astronomicalDawn, night: astronomicalDusk, solarNoon, sunset, sunrise } = SunCalc.getTimes(new Date(), lat, lng);
 
