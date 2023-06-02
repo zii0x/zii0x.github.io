@@ -138,11 +138,12 @@
                     ['firstThirdEnds', firstThirdEnds],
                     ['secondThirdEnds', secondThirdEnds]
                 ].forEach(([id, value]) => setTextContent(id, value.toLocaleTimeString()));
-            });
+            }, error => {
+                // handle error
+            }, { enableHighAccuracy: true });
         } else {
             // handle error
         }
-
     </script>
 </body>
 
