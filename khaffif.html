@@ -71,12 +71,24 @@
     <div class="container">
         <input type="text" id="inputText" placeholder="text here">
         <button onclick="removeDiacritics()">خفف</button>
+        <button onclick="removeDots()">خفف وازل النقاط</button>
         <textarea id="resultText" onclick="copyResult()"></textarea>
     </div>
     <script>
         const removeDiacritics = () => {
-            const inputText = document.querySelector("#inputText").value;
-            document.querySelector("#resultText").value = inputText.replaceAll(/[\u064B-\u0653\u0640]/g, '')
+            let inputText = document.querySelector("#inputText").value;
+            inputText = inputText.replaceAll(/[\u064B-\u0653\u0640\u06DF\u0670]/g, '').replaceAll(/ٱ/g, 'ا');
+            document.querySelector("#resultText").value = inputText;
+        }
+
+        const removeDots = () => {
+            removeDiacritics();
+            let inputText = document.querySelector("#resultText").value;
+            inputText = inputText.replaceAll(/[بثت]/g, 'ٮ').replaceAll(/[جخ]/g, 'ح').replaceAll(/ذ/g, 'د')
+                .replaceAll(/ز/g, 'ر').replaceAll(/ش/g, 'س').replaceAll(/ض/g, 'ص')
+                .replaceAll(/ظ/g, 'ط').replaceAll(/غ/g, 'ع').replaceAll(/ف/g, 'ڡ')
+                .replaceAll(/ق/g, 'ٯ').replaceAll(/ن/g, 'ں').replaceAll(/ي/g, 'ى');
+            document.querySelector("#resultText").value = inputText;
         }
 
         const copyResult = () => {
@@ -85,8 +97,8 @@
             resultText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(resultText.value);
         }
+
     </script>
 </body>
-
 
 </html>
