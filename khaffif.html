@@ -78,7 +78,7 @@
     <script>
         const removeDiacritics = () => {
             let inputText = document.querySelector("#inputText").value;
-            inputText = inputText.replaceAll(/[\u064B-\u0653\u0640\u06DF\u0670]/g, '').replaceAll(/ٱ/g, 'ا');
+            inputText = inputText.replaceAll(/[\u064B-\u0653\u0640\u06DF\u0670\u06D6-\u06DA]/g, '').replaceAll(/ٱ/g, 'ا').replace(/\s{2,}/g, ' ');
             document.querySelector("#resultText").value = inputText;
         }
 
