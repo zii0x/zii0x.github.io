@@ -16,7 +16,7 @@
             overflow: hidden;
             background: radial-gradient(60% 90% at 100% 100%, rgba(200, 250, 255, 0.09) 0%, rgba(28, 210, 229, 0.09) 41%, rgba(28, 210, 229, 0) 100%), radial-gradient(44% 64% at 60% 100%, rgba(23, 74, 228, 0.09) 0%, rgba(23, 74, 228, 0) 100%), linear-gradient(180deg, rgba(23, 74, 228, 0) 29.44%, rgba(23, 74, 228, 0.06) 100%), linear-gradient(90deg, #F3F3F7 0%, #edf1f8 100%);
         }
-        
+
         form {
             display: flex;
             flex-direction: column;
@@ -121,28 +121,17 @@
 
     <script>
         const getPriceMap = () => ({
-            oneface: { bw: 0.029, color: 0,064 },
+            oneface: { bw: 0.029, color: 0.064 },
             twoface: { bw: 0.024, color: 0.048 },
         });
 
-        const updateExchangeRate = async () => {
-            const response = await fetch('https://openexchangerates.org/api/latest.json?app_id=a53e36ff579f4cf1959e131b30e57e49&base=USD&symbols=SAR', { headers: { accept: 'application/json' } });
-            const { rates: { SAR } } = await response.json();
-            localStorage.setItem('exchangeRate', SAR);
-            localStorage.setItem('lastUpdated', Date.now());
-            return SAR;
-        };
-
-        const calculatePrice = async () => {
+        const calculatePrice = () => {
             const [face, color, number] = ['face', 'color', 'number'].map(name => name === 'number' ? document.querySelector(`#${name}`).value : document.querySelector(`input[name=${name}]:checked`).value);
 
             const priceMap = getPriceMap();
             const result = number * priceMap[face][color];
 
-            const lastUpdated = localStorage.getItem('lastUpdated');
-            const exchangeRate = !lastUpdated || Date.now() - lastUpdated > 86400000 ? await updateExchangeRate() : localStorage.getItem('exchangeRate');
-
-            const roundedResult = Math.ceil((result * exchangeRate) * 2) / 2;
+            const roundedResult = Math.ceil(result * 2) / 2;
             document.querySelector('#result').innerHTML = roundedResult;
         };
 
