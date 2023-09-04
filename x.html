@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Calculate X and Y</title>
+    <title>Calculate a and b</title>
 </head>
+
 <body>
-    <h2>Section 2: Calculate X and Y</h2>
-    <label for="a2">Enter value for a:</label>
-    <input type="number" id="a2" name="a2"><br><br>
-    <label for="b2">Enter value for b:</label>
-    <input type="number" id="b2" name="b2"><br><br>
-    <button onclick="displayXY()">Calculate X and Y</button><br><br>
-    <p id="output2"></p>
+    <h1>Calculate a and b</h1>
+    <form>
+        <label for="ratio">Enter the ratio of a:b:</label><br />
+        <input type="text" id="ratio" name="ratio" /><br />
+        <label for="fixed">Enter the fixed number:</label><br />
+        <input type="text" id="fixed" name="fixed" value="262144" /><br />
+        <input type="button" value="Calculate" onclick="calculate()" />
+    </form>
+    <p id="result"></p>
 
     <script>
-        function calculateXY(xy) {
-            let x = 16 * Math.sqrt(xy / 144);
-            let y = 9 * Math.sqrt(xy / 144);
-            return [x, y];
-        }
-
-        function displayXY() {
-            let a = document.getElementById("a2").value;
-            let b = document.getElementById("b2").value;
-            let xy = a * b;
-            let [x, y] = calculateXY(xy);
-            document.getElementById("output2").innerHTML = "Value of x: " + x + "<br>Value of y: " + y;
-        }
+        const calculate = () => {
+            const [ratioA, ratioB] = document.getElementById("ratio").value.split(":");
+            const fixed = document.getElementById("fixed").value;
+            const a = Math.sqrt((fixed * ratioA) / ratioB);
+            const b = fixed / a;
+            document.getElementById("result").innerHTML = `a = ${a.toFixed(
+                2
+            )}, b = ${b.toFixed(2)}`;
+        };
     </script>
 </body>
+
 </html>
