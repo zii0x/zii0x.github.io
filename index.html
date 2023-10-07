@@ -26,7 +26,7 @@
             padding: 0;
         }
 
-        .hero {
+        main {
             background-image: url('hero.jpg');
             display: flex;
             flex-direction: column;
@@ -38,7 +38,7 @@
             background: black
         }
 
-        .hero h1 {
+        main h1 {
             color: white;
             font-size: 8vh;
             margin: 3vh 0;
@@ -67,23 +67,17 @@
 </head>
 
 <body>
-    <label>
-        Material 3
-        <md-checkbox checked></md-checkbox>
-    </label>
-    <md-outlined-button>Back</md-outlined-button>
-    <md-filled-button>Next</md-filled-button>
-    <div class="hero">
+    <main>
         <h1>بسم الله</h1>
         <div class="buttons">
-            <a href="fc.html"><button>Fotokopi</button></a>
-            <a href="q.html"><button>Qawaid</button></a>
-            <a href="table.html"><button>Tabel Haji</button></a>
-            <a href="clock.html"><button>Waktu Shalat</button></a>
-            <a href="time.html"><button>Kalkulator Waktu</button></a>
-            <a href="khaffif.html"><button>Khaffif</button></a>
+            <md-filled-button href="fc.html">Fotokopi</button></md-filled-button>
+            <md-filled-button href="q.html">Qawaid</button></md-filled-button>
+            <md-filled-button href="table.html">Tabel Haji</button></md-filled-button>
+            <md-filled-button href="clock.html">Waktu Shalat</button></md-filled-button>
+            <md-filled-button href="time.html">Kalkulator Waktu</button></md-filled-button>
+            <md-filled-button href="khaffif.html">Khaffif</button></md-filled-button>
         </div>
-    </div>
+    </main>
 </body>
 
 </html>
