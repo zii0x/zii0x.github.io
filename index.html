@@ -13,6 +13,7 @@
     <style>
         :root {
             font-family: 'Roboto', system-ui, sans-serif;
+            --mdc-theme-primary: #275c35;
         }
 
         label {
@@ -51,6 +52,10 @@
             margin: 0 10%;
             justify-content: center;
             cursor: pointer;
+        }
+
+        md-filled-button {
+            --mdc-theme-primary: var(--mdc-theme-primary);
         }
 
         button {
