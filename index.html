@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
     <script src="bundle.js"></script>
+    <script src="index.js"></script>
     <style>
         :root {
             --md-sys-color-primary: olive;
@@ -70,6 +71,10 @@
             margin: 0.4vh;
             cursor: pointer;
         }
+
+        .container {
+            position: relative;
+        }
     </style>
 </head>
 
@@ -77,12 +82,35 @@
     <main>
         <h1>بسم الله</h1>
         <div class="buttons">
-            <md-filled-button href="fc.html">Fotokopi</button></md-filled-button>
-            <md-filled-button href="q.html">Qawaid</button></md-filled-button>
-            <md-filled-button href="table.html">Tabel Haji</button></md-filled-button>
-            <md-filled-button href="clock.html">Waktu Shalat</button></md-filled-button>
-            <md-filled-button href="time.html">Kalkulator Waktu</button></md-filled-button>
-            <md-filled-button href="khaffif.html">Khaffif</button></md-filled-button>
+            <md-filled-button class="container" href="fc.html">
+                Fotokopi
+                <md-ripple></md-ripple>
+            </md-filled-button>
+
+            <md-filled-button class="container" href="q.html">
+                Qawaid
+                <md-ripple></md-ripple>
+            </md-filled-button>
+
+            <md-filled-button class="container" href="table.html">
+                Tabel Haji
+                <md-ripple></md-ripple>
+            </md-filled-button>
+
+            <md-filled-button class="container" href="clock.html">
+                Waktu Shalat
+                <md-ripple></md-ripple>
+            </md-filled-button>
+
+            <md-filled-button class="container" href="time.html">
+                Kalkulator Waktu
+                <md-ripple></md-ripple>
+            </md-filled-button>
+
+            <md-filled-button class="container" href="khaffif.html">
+                Khaffif
+                <md-ripple></md-ripple>
+            </md-filled-button>
         </div>
     </main>
 </body>
